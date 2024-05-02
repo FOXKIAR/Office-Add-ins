@@ -17,7 +17,8 @@
 
 
 ### 2.通过微软教程手动生成，完整教程见本文末
-2.1在文件资源管理器的任意非中文路径中，右键打开powshell输入`yo office` 回车执行  
+(前提是要先完成"先决条件"内的操作)  
+2.1在文件资源管理器的任意非中文路径中，右键打开PowerShell输入`yo office` 回车执行  
   如果遇到不能执行ps代码的报错，请参阅[文档链接](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4)  
 2.2出现提示时，请提供以下信息以创建加载项项目。
 
@@ -27,10 +28,8 @@
 -  你希望支持哪个 Office 客户端应用程序？Word   
 
 2.3执行
-进入到2.2所输入的外接程序命名名称文件夹内，右键打开powshell输入`npm start` 回车执行即可，详见本项目1.1start.bat之后。
+进入到2.2所输入的外接程序命名名称文件夹内，右键打开PowerShell输入`npm start` 回车执行即可，详见本项目1.1start.bat之后。
 
-
-微软教程：[https://learn.microsoft.com/zh-cn/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator](https://learn.microsoft.com/zh-cn/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator)
-
-
-
+### 3.后续开发请参阅微软相关教程
+[生成首个 Word 任务窗格加载项](https://learn.microsoft.com/zh-cn/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator)   
+[创建 Word 任务窗格加载项](https://learn.microsoft.com/zh-cn/office/dev/add-ins/tutorials/word-tutorial)
