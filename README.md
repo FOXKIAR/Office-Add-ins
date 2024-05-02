@@ -6,7 +6,7 @@
 
 
 ## 使用说明
-###1.通过下载本项目的方式运行：
+### 1.通过下载本项目的方式运行：
 1.1将下载下来的文件解压到非中文路径中，执行".\Office-Add-ins\word-add-in\start.bat"  
 询问是否使用Microsoft Edge WebView 请选择n,如下图所示：
 ![](https://img.picgo.net/2024/05/02/-2024-05-02-1827257becff5b50c679eb.png)
