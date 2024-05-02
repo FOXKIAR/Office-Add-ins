@@ -1,4 +1,4 @@
-#生成首个 Word 任务窗格加载项  
+# 生成首个 Word 任务窗格加载项  
 本文将逐步介绍如何在Windows环境中生成 Word 任务窗格加载项。  
 ## 先决条件  
 1.安装 [Node.js](https://nodejs.org/)（最新LTS 版本）。  
@@ -16,7 +16,7 @@
 1.2如果以上正常的话应该会打开word，并在窗口右侧弹出加载项任务窗格。 
 
 
-###2.通过微软教程手动生成，完整教程见本文末
+### 2.通过微软教程手动生成，完整教程见本文末
 2.1在文件资源管理器的任意非中文路径中，右键打开powshell输入`yo office` 回车执行  
   如果遇到不能执行ps代码的报错，请参阅[文档链接](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4)  
 2.2出现提示时，请提供以下信息以创建加载项项目。
