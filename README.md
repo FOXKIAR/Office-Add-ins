@@ -24,7 +24,7 @@
 
 -  选择项目类型：Office Add-in Task Pane project
 -  选择脚本类型：JavaScript
--  要为外接程序命名什么名称？My Office Add-in
+-  要为外接程序命名什么名称？word-add-in  
 -  你希望支持哪个 Office 客户端应用程序？Word   
 
 2.3执行
