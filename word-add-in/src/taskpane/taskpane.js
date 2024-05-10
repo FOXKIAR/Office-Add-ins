@@ -17,9 +17,8 @@ async function insertParagraph() {
   await Word.run(async (context) => {
 
     const docBody = context.document.body;
-    docBody.insertParagraph("Office has several versions, including Office 2016, Microsoft 365 subscription, and Office on the web.",
+    docBody.insertParagraph("There are many versions of Office, including Office 2016, Microsoft 365 subscription, Office on the web, and more.",
                             Word.InsertLocation.start);
-
       await context.sync();
   });
 }
