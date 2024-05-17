@@ -11,6 +11,9 @@ Office.onReady((info) => {
     document.getElementById("app-body").style.display = "flex";
     // Assign event handlers and other initialization logic.
     document.getElementById("insert-paragraph").onclick = () => tryCatch(insertParagraph);
+    document.getElementById("apply-style").onclick = () => tryCatch(applyStyle);
+    document.getElementById("apply-custom-style").onclick = () => tryCatch(applyCustomStyle);
+    document.getElementById("change-font").onclick = () => tryCatch(changeFont);
   }
 });
 async function insertParagraph() {
@@ -18,18 +21,51 @@ async function insertParagraph() {
 
     const docBody = context.document.body;
     docBody.insertParagraph("There are many versions of Office, including Office 2016, Microsoft 365 subscription, Office on the web, and more.",
-                            Word.InsertLocation.start);
-      await context.sync();
+      Word.InsertLocation.start);
+    await context.sync();
   });
 }
 
 /** Default helper for invoking an action and handling errors. */
 async function tryCatch(callback) {
   try {
-      await callback();
+    await callback();
   } catch (error) {
-      // Note: In a production add-in, you'd want to notify the user through your add-in's UI.
-      console.error(error);
+    // Note: In a production add-in, you'd want to notify the user through your add-in's UI.
+    console.error(error);
   }
 }
 
+async function applyStyle() {
+  await Word.run(async (context) => {
+
+    const firstParagraph = context.document.body.paragraphs.getFirst();
+    firstParagraph.styleBuiltIn = Word.Style.intenseReference;
+
+    await context.sync();
+  });
+}
+
+async function applyCustomStyle() {
+  await Word.run(async (context) => {
+
+    const lastParagraph = context.document.body.paragraphs.getLast();
+    lastParagraph.style = "MyCustomStyle";
+
+    await context.sync();
+  });
+}
+
+async function changeFont() {
+  await Word.run(async (context) => {
+
+    const secondParagraph = context.document.body.paragraphs.getFirst().getNext();
+    secondParagraph.font.set({
+      name: "TypeLand.com 康熙字典體",
+      bold: true,
+      size: 18
+    });
+
+    await context.sync();
+  });
+}
