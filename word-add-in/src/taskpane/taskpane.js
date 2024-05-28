@@ -5,6 +5,8 @@
 
 /* global document, Office, Word */
 
+import { base64Image } from "../../base64Image";
+
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
     document.getElementById("sideload-msg").style.display = "none";
@@ -14,6 +16,7 @@ Office.onReady((info) => {
     document.getElementById("apply-style").onclick = () => tryCatch(applyStyle);
     document.getElementById("apply-custom-style").onclick = () => tryCatch(applyCustomStyle);
     document.getElementById("change-font").onclick = () => tryCatch(changeFont);
+    document.getElementById("insert-image").onclick = () => tryCatch(insertImage);
   }
 });
 async function insertParagraph() {
@@ -67,5 +70,14 @@ async function changeFont() {
     });
 
     await context.sync();
+  });
+}
+
+async function insertImage() {
+  await Word.run(async (context) => {
+
+    context.document.body.insertInlinePictureFromBase64(base64Image, Word.InsertLocation.end);
+
+      await context.sync();
   });
 }
