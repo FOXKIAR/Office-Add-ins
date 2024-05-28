@@ -12,6 +12,7 @@
 ![](https://img.picgo.net/2024/05/02/-2024-05-02-1827257becff5b50c679eb.png)
 
 询问是否安装CA证书 请选择 是。
+![](https://img.picgo.net/2024/05/28/_202405282042546985ac1ac96077e9.png)
 
 1.2如果以上正常的话应该会打开word，并在窗口右侧弹出加载项任务窗格。 
 
@@ -30,6 +31,6 @@
 2.3执行
 进入到2.2所输入的外接程序命名名称文件夹内，右键打开PowerShell输入`npm start` 回车执行即可，详见本项目1.1start.bat之后。
 
-### 3.后续开发请参阅微软相关教程
+## 3.后续开发请参阅微软相关教程
 [生成首个 Word 任务窗格加载项](https://learn.microsoft.com/zh-cn/office/dev/add-ins/quickstarts/word-quickstart?tabs=yeomangenerator)   
 [创建 Word 任务窗格加载项](https://learn.microsoft.com/zh-cn/office/dev/add-ins/tutorials/word-tutorial)
