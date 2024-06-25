@@ -17,6 +17,9 @@ Office.onReady((info) => {
     document.getElementById("apply-custom-style").onclick = () => tryCatch(applyCustomStyle);
     document.getElementById("change-font").onclick = () => tryCatch(changeFont);
     document.getElementById("insert-image").onclick = () => tryCatch(insertImage);
+    document.getElementById("insert-text-into-range").onclick = () => tryCatch(insertTextIntoRange);
+    document.getElementById("insert-text-outside-range").onclick = () => tryCatch(insertTextBeforeRange);
+    document.getElementById("replace-text").onclick = () => tryCatch(replaceText);
   }
 });
 async function insertParagraph() {
@@ -77,6 +80,49 @@ async function insertImage() {
   await Word.run(async (context) => {
 
     context.document.body.insertInlinePictureFromBase64(base64Image, Word.InsertLocation.end);
+
+      await context.sync();
+  });
+}
+
+async function insertTextIntoRange() {
+  await Word.run(async (context) => {
+
+    const doc = context.document;
+    const originalRange = doc.getSelection();
+    originalRange.insertText(" (M365)", Word.InsertLocation.end);
+    
+    originalRange.load("text");
+    await context.sync();
+
+    doc.body.insertParagraph("Original range: " + originalRange.text, Word.InsertLocation.end);
+
+    await context.sync();
+  });
+}
+
+async function insertTextBeforeRange() {
+  await Word.run(async (context) => {
+
+    const doc = context.document;
+    const originalRange = doc.getSelection();
+    originalRange.insertText("Office 2019, ", Word.InsertLocation.before);
+
+    originalRange.load("text");
+    await context.sync();
+    
+    doc.body.insertParagraph("Current text of original range: " + originalRange.text, Word.InsertLocation.end);
+    
+    await context.sync();
+  });
+}
+
+async function replaceText() {
+  await Word.run(async (context) => {
+
+    const doc = context.document;
+    const originalRange = doc.getSelection();
+    originalRange.insertText("many", Word.InsertLocation.replace);
 
       await context.sync();
   });
