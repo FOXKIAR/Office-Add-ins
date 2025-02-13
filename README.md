@@ -8,7 +8,11 @@
 
 ## 使用说明
 ### 1.通过下载本项目的方式运行：
-1.1将下载下来的文件解压到非中文路径中，执行".\start.bat"  
+1.1将下载下来的文件解压到非中文路径中，执行下列任意一项
++ ".\word-add-in\start.bat"
++ ".\excel-add-in\start.bat"
++ ".\ppt-add-in\start.bat"  
+
 询问是否使用Microsoft Edge WebView 请选择y,如下图所示：
 ![](https://s21.ax1x.com/2025/02/05/pEeJ1QU.png)
 
