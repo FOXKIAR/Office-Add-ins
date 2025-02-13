@@ -1,14 +1,18 @@
-# 生成首个 Word 任务窗格加载项  
-本文将逐步介绍如何在Windows环境中生成 Word 任务窗格加载项。  
+# 生成首个 office 任务窗格加载项  
+本文将逐步介绍如何在Windows环境中生成 (Word、PowerPoint、Excel) 任务窗格加载项。  
 ## 先决条件  
 1.安装 [Node.js](https://nodejs.org/)（最新LTS 版本）。  
 2.在powshell中执行 `npm install -g yo generator-office`并等待执行完成。
-  如果遇到不能执行ps代码的报错，请参阅[文档链接](https:/go.microsoft.com/fwlink/?LinkID=135170)。
+  如果遇到不能执行ps代码的报错，请参阅[文档](https:/go.microsoft.com/fwlink/?LinkID=135170)。
 
 
 ## 使用说明
 ### 1.通过下载本项目的方式运行：
-1.1将下载下来的文件解压到非中文路径中，执行".\Office-Add-ins\word-add-in\start.bat"  
+1.1将下载下来的文件解压到非中文路径中，执行下列任意一项
++ ".\word-add-in\start.bat"
++ ".\excel-add-in\start.bat"
++ ".\ppt-add-in\start.bat"  
+
 询问是否使用Microsoft Edge WebView 请选择y,如下图所示：
 ![](https://s21.ax1x.com/2025/02/05/pEeJ1QU.png)
 
