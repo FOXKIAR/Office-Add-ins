@@ -10,6 +10,7 @@ Office.onReady((info) => {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
+    document.getElementById("test").onclick = function () {Office.context.document.setSelectedDataAsync(" show test ", options)};
   }
 });
 
