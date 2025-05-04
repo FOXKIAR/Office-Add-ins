@@ -1,3 +1,5 @@
+CHCP 65001
+
 @echo off
 
 echo "尝试下载依赖项"
