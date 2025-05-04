@@ -6,6 +6,7 @@
 /* global document, Office, Word */
 
 import { base64Image } from "../../base64Image";
+import { logoPng } from "../../assets/logo-filled.png"
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -20,6 +21,7 @@ Office.onReady((info) => {
     document.getElementById("insert-text-into-range").onclick = () => tryCatch(insertTextIntoRange);
     document.getElementById("insert-text-outside-range").onclick = () => tryCatch(insertTextBeforeRange);
     document.getElementById("replace-text").onclick = () => tryCatch(replaceText);
+    document.getElementById("logo").onclick = () => tryCatch();
   }
 });
 async function insertParagraph() {
@@ -125,5 +127,18 @@ async function replaceText() {
     originalRange.insertText("many", Word.InsertLocation.replace);
 
       await context.sync();
+  });
+}
+
+async function showLogo() {
+  await Word.run(async (context) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(logoPng);
+
+    const logoBase64Str = reader.result.split(",")[1];
+
+    context.document.body.insertInlinePictureFromBase64(logoBase64Str, Word.InsertLocation.end);
+
+    await context.sync();
   });
 }
