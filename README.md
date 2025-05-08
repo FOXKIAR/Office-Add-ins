@@ -2,7 +2,7 @@
 本文将逐步介绍如何在Windows环境中生成 (Word、PowerPoint、Excel) 任务窗格加载项。  
 ## 先决条件  
 1.安装 [Node.js](https://nodejs.org/)（最新LTS 版本）。  
-2.在powshell中执行 `npm install -g yo generator-office`并等待执行完成。
+2.在powershell中执行 `npm install -g yo generator-office`并等待执行完成。
   如果遇到不能执行ps代码的报错，请参阅[文档](https:/go.microsoft.com/fwlink/?LinkID=135170)。
 
 
