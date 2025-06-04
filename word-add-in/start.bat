@@ -1,6 +1,5 @@
-CHCP 65001
-
 @echo off
+chcp 65001 >nul
 
 echo "尝试下载依赖项"
 call npm install || (
