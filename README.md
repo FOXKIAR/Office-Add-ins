@@ -3,7 +3,7 @@
 ## 先决条件  
 1.安装 [Node.js](https://nodejs.org/)（最新LTS 版本）。  
 2.在powershell中执行 `npm install -g yo generator-office`并等待执行完成。
-  如果遇到不能执行ps代码的报错，请参阅 [](https:/go.microsoft.com/fwlink/?LinkID=135170) 。
+  如果遇到不能执行ps代码的报错，请参阅 [https:/go.microsoft.com/fwlink/?LinkID=135170](https:/go.microsoft.com/fwlink/?LinkID=135170)
 
 
 ## 使用说明
