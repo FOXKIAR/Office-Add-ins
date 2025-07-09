@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
  * See LICENSE in the project root for license information.
  */
-import { logo } from "../../assets/logo-filled.png"
+import { base64Image } from "../../assets/base64Image";
 
 /* global document, Office */
 
@@ -11,7 +11,7 @@ Office.onReady((info) => {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
-    document.getElementById("test").onclick = function () {Office.context.document.setSelectedDataAsync(" show test ", options)};
+    document.getElementById("test").onclick = test;
   }
 });
 
@@ -30,11 +30,6 @@ export async function test() {
    * Insert your PowerPoint code here
    */
   const options = { coercionType: Office.CoercionType.Image };
-
-  const reader = new FileReader();
-  reader.readAsDataURL(logo);
-
-  const logoBase64Str = reader.result.split(",")[1];
-
-  await Office.context.document.setSelectedDataAsync(logoBase64Str, options);
+  // 直接插入base64图片
+  await Office.context.document.setSelectedDataAsync(base64Image, options);
 }
