@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
  * See LICENSE in the project root for license information.
  */
-import { base64Image } from "../../assets/base64Image";
+import { base64Image } from "../../base64Image";
 
 /* global document, Office */
 
