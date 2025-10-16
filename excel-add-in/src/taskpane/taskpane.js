@@ -3,6 +3,8 @@
  * See LICENSE in the project root for license information.
  */
 
+import { InitInterface } from "./tetris";
+
 /* global console, document, Excel, Office */
 
 Office.onReady((info) => {
@@ -11,7 +13,7 @@ Office.onReady((info) => {
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
     document.getElementById("rand").onclick = random;
-    document.getElementById("default").onclick = none;
+    document.getElementById("play").onclick = tetris;
   }
 });
 
@@ -61,18 +63,6 @@ export async function random() {
   }
 }
 
-export async function none() {
-  try {
-    await Excel.run(async (context) => {
-      const range = context.workbook.getSelectedRange();
-      range.load("address");
-
-      range.format.fill.color = '#FFFFFF';
-      range.format.font.color = '#000000';
-      await context.sync();
-      console.log(`The range address was ${range.address}.`);
-    });
-  } catch (error) {
-    console.error(error);
-  }
+export function tetris() {
+  InitInterface();
 }
