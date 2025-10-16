@@ -1,6 +1,6 @@
-import blocks from './blocks';
+import { createBlock } from './blocks';
 
-export async function InitInterface() { // 初始化界面
+export function InitInterface() { // 初始化界面
     Excel.run(async (context) => {
         const workSheet = context.workbook.worksheets.getItem("Sheet1");
         const gameRange = workSheet.getRange("A1:L22");
@@ -9,15 +9,41 @@ export async function InitInterface() { // 初始化界面
         await context.sync();
         const playRange = workSheet.getRange("B2:K21");
         playRange.format.fill.color = "white";
-        createBlock(playRange);
         await context.sync();
     });
 }
 
-export function createBlock(range) { // 初始化方块信息
-    const block = blocks[Math.floor(Math.random() * 7)];
-    for (let i = 0; i < 4; i ++) {
-        range.getCell(block.space[i].y, block.space[i].x).format.fill.color = block.color;
-    }
+export function playGame() {
+    let block = createBlock();
+    document.addEventListener("keydown", function (event) {
+        if (event.code === "ArrowLeft") 
+            blockMove(block, "left");
+        if (event.code === "ArrowRight") 
+            blockMove(block, "right");
+    });
+
+    setInterval(() => {
+        blockMove(block, "down");
+    }, 500)
 }
 
+export function blockMove(block, direction) {
+    Excel.run(async (context) => {
+        const workSheet = context.workbook.worksheets.getItem("Sheet1");
+        const playRange = workSheet.getRange("B2:K21");
+        block.space.forEach(item => {
+            playRange.getCell(item.y, item.x).format.fill.color = "white";
+        });
+        if (direction === "left")
+            block.left();
+        if (direction === "right")
+            block.right();
+        if (direction === "down")
+            block.down();
+
+        block.space.forEach(item => {
+            playRange.getCell(item.y, item.x).format.fill.color = block.color;
+        });
+        await context.sync();
+    });
+}

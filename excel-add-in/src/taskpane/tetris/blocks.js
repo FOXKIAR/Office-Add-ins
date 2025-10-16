@@ -3,15 +3,15 @@ class Block {
     color = "";
 
     down() {
-        this.space.forEach((item) => item.y + 1);
+        this.space.forEach((item) => item.y += 1);
     }
 
     left() {
-        this.space.forEach((item) => item.x - 1);
+        this.space.forEach((item) => item.x -= 1);
     }
 
     right() {
-        this.space.forEach((item) => item.x + 1);
+        this.space.forEach((item) => item.x += 1);
     }
 }
 
@@ -69,4 +69,21 @@ class I extends Block {
     color = "blue";
 }
 
-export default [new T(), new L(), new J(), new Z(), new S(), new O(), new I()];
+export function createBlock() {
+    switch(Math.floor(Math.random() * 7)) {
+        case 0: 
+            return new T();
+        case 1:
+            return new L();
+        case 2: 
+            return new J();
+        case 3:
+            return new Z();
+        case 4: 
+            return new S();
+        case 5:
+            return new O();
+        case 6: 
+            return new I();
+    }
+}
