@@ -1,36 +1,42 @@
 import { createBlock } from "./blocks";
 import { Board } from "./board";
 
-// Excel加载项游戏主逻辑
 let board;
 let currentBlock;
 let gameInterval;
 let score = 0;
 
-export function init() {
+export function playGame() {
     Excel.run(async (context) => {
         const workSheet = context.workbook.worksheets.getItem("Sheet1");
         const gameRange = workSheet.getRange("A1:L22");
         gameRange.format.fill.color = "black";
         gameRange.format.columnWidth = 15;
         await context.sync();
-        
         const playRange = workSheet.getRange("B2:K21");
         playRange.format.fill.color = "white";
         await context.sync();
-
         board = new Board(10, 20);
+
         startGame();
     });
 }
 
-export function startGame() {
+function startGame() {
     score = 0;
     currentBlock = createBlock(board);
     renderBoard();
     
-    // 添加键盘事件监听
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", (event) => {
+        if (event.code === "ArrowUp") 
+            blockMove("rotate");
+        if (event.code === "ArrowLeft") 
+            blockMove("left");
+        if (event.code === "ArrowRight") 
+            blockMove("right");
+        if (event.code === "ArrowDown")
+            blockMove("down");
+    });
     
     if (gameInterval) clearInterval(gameInterval);
     gameInterval = setInterval(() => {
@@ -40,7 +46,6 @@ export function startGame() {
             score += linesCleared * 100;
             currentBlock = createBlock(board);
             
-            // 检查游戏结束
             if (!board.isValidPosition(currentBlock.space)) {
                 clearInterval(gameInterval);
                 document.removeEventListener("keydown", handleKeyDown);
@@ -51,18 +56,7 @@ export function startGame() {
     }, 500);
 }
 
-function handleKeyDown(event) {
-    if (event.code === "ArrowUp") 
-        blockMove("rotate");
-    if (event.code === "ArrowLeft") 
-        blockMove("left");
-    if (event.code === "ArrowRight") 
-        blockMove("right");
-    if (event.code === "ArrowDown")
-        blockMove("down");
-}
-
-export function blockMove(direction) {
+function blockMove(direction) {
     if (!board || !currentBlock) return;
     
     Excel.run(async (context) => {
