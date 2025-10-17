@@ -3,7 +3,7 @@
  * See LICENSE in the project root for license information.
  */
 
-import { blockMove, InitInterface, playGame } from "./tetris";
+import { init, startGame } from "./tetris";
 
 /* global console, document, Excel, Office */
 
@@ -64,6 +64,5 @@ export async function random() {
 }
 
 export function tetris() {
-  InitInterface();
-  playGame();
+  init();
 }
