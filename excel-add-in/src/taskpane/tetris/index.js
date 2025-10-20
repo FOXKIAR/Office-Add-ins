@@ -1,6 +1,7 @@
 import { createBlock } from "./blocks";
 import { Board } from "./board";
 
+// Excel加载项游戏主逻辑
 let board;
 let currentBlock;
 let gameInterval;
@@ -27,16 +28,8 @@ function startGame() {
     currentBlock = createBlock(board);
     renderBoard();
     
-    document.addEventListener("keydown", (event) => {
-        if (event.code === "ArrowUp") 
-            blockMove("rotate");
-        if (event.code === "ArrowLeft") 
-            blockMove("left");
-        if (event.code === "ArrowRight") 
-            blockMove("right");
-        if (event.code === "ArrowDown")
-            blockMove("down");
-    });
+    // 添加键盘事件监听
+    document.addEventListener("keydown", handleKeyDown);
     
     if (gameInterval) clearInterval(gameInterval);
     gameInterval = setInterval(() => {
@@ -46,14 +39,28 @@ function startGame() {
             score += linesCleared * 100;
             currentBlock = createBlock(board);
             
+            // 检查游戏结束
             if (!board.isValidPosition(currentBlock.space)) {
+                console.log("GAME OVER!");
+                setTimeout(() => gameOver(), 250);
                 clearInterval(gameInterval);
                 document.removeEventListener("keydown", handleKeyDown);
-                console.log(`游戏结束！得分: ${score}`);
+                
             }
         }
         renderBoard();
     }, 500);
+}
+
+function handleKeyDown(event) {
+    if (event.code === "ArrowUp") 
+        blockMove("rotate");
+    if (event.code === "ArrowLeft") 
+        blockMove("left");
+    if (event.code === "ArrowRight") 
+        blockMove("right");
+    if (event.code === "ArrowDown")
+        blockMove("down");
 }
 
 function blockMove(direction) {
@@ -107,8 +114,21 @@ function renderBoard() {
         
         // 更新分数
         const scoreCell = workSheet.getRange("M2");
-        scoreCell.values = [[`得分: ${score}`]];
+        scoreCell.values = `得分: ${score}`;
         
+        await context.sync();
+    });
+}
+
+function gameOver() {
+    Excel.run(async (context) => {
+        const message = "GAME OVER!";
+        const range = context.workbook.worksheets.getItem("Sheet1").getRange("B2:K3");
+        range.format.fill.color = "black";
+        range.format.font.color = "red";
+        for (let i = 0; i < message.length; i++) {
+            range.getCell(0, i).values = message[i];
+        }
         await context.sync();
     });
 }
