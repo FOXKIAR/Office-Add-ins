@@ -45,8 +45,16 @@ async function tryCatch(callback) {
 
 async function applyStyle() {
   await Word.run(async (context) => {
+    const paragraphs = context.document.body.paragraphs;
+    paragraphs.load("items");
+    await context.sync();
 
-    const firstParagraph = context.document.body.paragraphs.getFirst();
+    if (paragraphs.items.length === 0) {
+      console.warn("文档中没有段落可以应用样式");
+      return;
+    }
+
+    const firstParagraph = paragraphs.getFirst();
     firstParagraph.styleBuiltIn = Word.Style.intenseReference;
 
     await context.sync();
@@ -55,8 +63,16 @@ async function applyStyle() {
 
 async function applyCustomStyle() {
   await Word.run(async (context) => {
+    const paragraphs = context.document.body.paragraphs;
+    paragraphs.load("items");
+    await context.sync();
 
-    const lastParagraph = context.document.body.paragraphs.getLast();
+    if (paragraphs.items.length === 0) {
+      console.warn("文档中没有段落可以应用样式");
+      return;
+    }
+
+    const lastParagraph = paragraphs.getLast();
     lastParagraph.style = "MyCustomStyle";
 
     await context.sync();
@@ -65,8 +81,25 @@ async function applyCustomStyle() {
 
 async function changeFont() {
   await Word.run(async (context) => {
+    const paragraphs = context.document.body.paragraphs;
+    paragraphs.load("items");
+    await context.sync();
 
-    const secondParagraph = context.document.body.paragraphs.getFirst().getNext();
+    if (paragraphs.items.length < 2) {
+      console.warn("文档中需要至少两个段落才能更改第二个段落的字体");
+      return;
+    }
+
+    const firstParagraph = paragraphs.getFirst();
+    firstParagraph.load("next");
+    await context.sync();
+
+    const secondParagraph = firstParagraph.next;
+    if (!secondParagraph) {
+      console.warn("无法找到第二个段落");
+      return;
+    }
+
     secondParagraph.font.set({
       name: "TypeLand.com 康熙字典體",
       bold: true,
