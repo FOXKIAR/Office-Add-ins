@@ -27,6 +27,10 @@ class Block {
 
     rotate() {
         const pivot = this.getPivot();
+        if (!pivot || this.space.length === 0) {
+            return false;
+        }
+        
         const newSpace = this.space.map(pos => {
             const relX = pos.x - pivot.x;
             const relY = pos.y - pivot.y;
@@ -45,7 +49,13 @@ class Block {
     }
 
     getPivot() {
-        return this.space[1];
+        // 默认使用第二个方块作为旋转中心，如果不存在则使用第一个
+        if (this.space && this.space.length > 1) {
+            return this.space[1];
+        } else if (this.space && this.space.length > 0) {
+            return this.space[0];
+        }
+        return null;
     }
 }
 
