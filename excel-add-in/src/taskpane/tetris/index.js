@@ -16,6 +16,7 @@ export function playGame() {
         await context.sync();
         const playRange = workSheet.getRange("B2:K21");
         playRange.format.fill.color = "white";
+        playRange.values = "";
         await context.sync();
         board = new Board(10, 20);
 
@@ -27,10 +28,10 @@ function startGame() {
     score = 0;
     currentBlock = createBlock(board);
     renderBoard();
-    
+
     // 添加键盘事件监听
     document.addEventListener("keydown", handleKeyDown);
-    
+
     if (gameInterval) clearInterval(gameInterval);
     gameInterval = setInterval(() => {
         if (!currentBlock.down()) {
@@ -38,14 +39,14 @@ function startGame() {
             const linesCleared = board.clearLines();
             score += linesCleared * 100;
             currentBlock = createBlock(board);
-            
+
             // 检查游戏结束
             if (!board.isValidPosition(currentBlock.space)) {
                 console.log("GAME OVER!");
                 setTimeout(() => gameOver(), 250);
                 clearInterval(gameInterval);
                 document.removeEventListener("keydown", handleKeyDown);
-                
+
             }
         }
         renderBoard();
@@ -53,11 +54,11 @@ function startGame() {
 }
 
 function handleKeyDown(event) {
-    if (event.code === "ArrowUp") 
+    if (event.code === "ArrowUp")
         blockMove("rotate");
-    if (event.code === "ArrowLeft") 
+    if (event.code === "ArrowLeft")
         blockMove("left");
-    if (event.code === "ArrowRight") 
+    if (event.code === "ArrowRight")
         blockMove("right");
     if (event.code === "ArrowDown")
         blockMove("down");
@@ -65,7 +66,7 @@ function handleKeyDown(event) {
 
 function blockMove(direction) {
     if (!board || !currentBlock) return;
-    
+
     Excel.run(async (context) => {
         switch(direction) {
             case "rotate":
@@ -88,14 +89,14 @@ function blockMove(direction) {
 
 function renderBoard() {
     if (!board || !currentBlock) return;
-    
+
     Excel.run(async (context) => {
         const workSheet = context.workbook.worksheets.getItem("Sheet1");
         const playRange = workSheet.getRange("B2:K21");
-        
+
         // 清除整个游戏区域
         playRange.format.fill.color = "white";
-        
+
         // 绘制固定方块
         for (let y = 0; y < board.height; y++) {
             for (let x = 0; x < board.width; x++) {
@@ -104,18 +105,18 @@ function renderBoard() {
                 }
             }
         }
-        
+
         // 绘制当前活动方块
         currentBlock.space.forEach(pos => {
             if (pos.y >= 0 && pos.y < board.height && pos.x >= 0 && pos.x < board.width) {
                 playRange.getCell(pos.y, pos.x).format.fill.color = currentBlock.color;
             }
         });
-        
+
         // 更新分数
         const scoreCell = workSheet.getRange("M2");
         scoreCell.values = `得分: ${score}`;
-        
+
         await context.sync();
     });
 }

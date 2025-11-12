@@ -3,7 +3,8 @@
  * See LICENSE in the project root for license information.
  */
 
-import { playGame } from "./tetris";
+import { playGame as playTetris } from "./tetris";
+import { playGame as playSnake } from "./snake";
 
 /* global console, document, Excel, Office */
 
@@ -13,7 +14,8 @@ Office.onReady((info) => {
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
     document.getElementById("rand").onclick = random;
-    document.getElementById("play").onclick = tetris;
+    document.getElementById("tetris").onclick = tetris;
+    document.getElementById("snake").onclick = snake;
   }
 });
 
@@ -64,5 +66,9 @@ export async function random() {
 }
 
 export function tetris() {
-  playGame();
+  playTetris();
+}
+
+export function snake() {
+  playSnake();
 }
