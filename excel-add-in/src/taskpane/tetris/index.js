@@ -1,6 +1,7 @@
 import { createBlock } from "./blocks";
 import { Board } from "./board";
 
+// Excel加载项游戏主逻辑
 let board;
 let currentBlock;
 let gameInterval;
@@ -70,7 +71,8 @@ function startGame() {
             const linesCleared = board.clearLines();
             score += linesCleared * 100;
             currentBlock = createBlock(board);
-            
+
+            // 检查游戏结束
             if (!board.isValidPosition(currentBlock.space)) {
                 stopGame();
                 console.log(`游戏结束！得分: ${score}`);
@@ -94,6 +96,17 @@ function stopGame() {
         document.removeEventListener("keydown", keyDownHandler);
         keyDownHandler = null;
     }
+}
+
+function handleKeyDown(event) {
+    if (event.code === "ArrowUp")
+        blockMove("rotate");
+    if (event.code === "ArrowLeft")
+        blockMove("left");
+    if (event.code === "ArrowRight")
+        blockMove("right");
+    if (event.code === "ArrowDown")
+        blockMove("down");
 }
 
 function blockMove(direction) {
@@ -160,4 +173,17 @@ function renderBoard() {
     } catch (error) {
         console.error("渲染错误:", error);
     }
+}
+
+function gameOver() {
+    Excel.run(async (context) => {
+        const message = "GAME OVER!";
+        const range = context.workbook.worksheets.getItem("Sheet1").getRange("B2:K3");
+        range.format.fill.color = "black";
+        range.format.font.color = "red";
+        for (let i = 0; i < message.length; i++) {
+            range.getCell(0, i).values = message[i];
+        }
+        await context.sync();
+    });
 }
