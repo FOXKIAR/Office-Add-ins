@@ -21,6 +21,7 @@ Office.onReady((info) => {
     document.getElementById("insert-text-outside-range").onclick = () => tryCatch(insertTextBeforeRange);
     document.getElementById("replace-text").onclick = () => tryCatch(replaceText);
     document.getElementById("logo").onclick = () => tryCatch(showLogo);
+    document.getElementById("jinrishici").onclick = () => tryCatch(getShiCi);
   }
 });
 async function insertParagraph() {
@@ -165,6 +166,23 @@ async function replaceText() {
 async function showLogo() {
   await Word.run(async (context) => {
     context.document.body.insertInlinePictureFromBase64(base64Image, Word.InsertLocation.end);
+    await context.sync();
+  });
+}
+
+async function getShiCi() {
+  let shiCi = "";
+  await fetch("https://v2.jinrishici.com/one.json").then((result) => result.json())
+      .then((r) => {
+        console.log(r)
+        shiCi = r.data.content;
+      })
+
+  await Word.run(async (context) => {
+
+    const docBody = context.document.body;
+    docBody.insertParagraph(shiCi,
+        Word.InsertLocation.end);
     await context.sync();
   });
 }
